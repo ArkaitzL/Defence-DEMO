@@ -7,6 +7,7 @@ using UnityEngine;
 public class Controlador : MonoBehaviour
 {
     [SerializeField] public float duracion_turno = 1;
+    [SerializeField] private GameObject particulas_golpe;
 
     public List<Ficha> fichas = new();
     int turno;
@@ -39,15 +40,16 @@ public class Controlador : MonoBehaviour
         turno++;
     }
 
-    public void Muerte(Ficha ficha) 
+    public void Muerte(Ficha ficha)
     {
         fichas.Remove(ficha);
         ficha.texto.color = Color.red;
         ficha.anim.SetTrigger("Muerto");
 
         ControladorBG.Rutina(1, () => {
-            //      [Particulas-Muerte]
+            GameObject particulas = Instantiate(particulas_golpe, ficha.objeto.position.Y(.25f), Quaternion.identity, transform);
             Destroy(ficha.objeto.gameObject);
+            Destroy(particulas, 4);
         });
     }
 }
