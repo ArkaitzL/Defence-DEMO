@@ -5,7 +5,8 @@ using BaboOnLite;
 
 public class Ataque : MonoBehaviour
 {
-    [SerializeField] private Material area_material, centro_material;
+    [SerializeField] private Material area_material;
+    [SerializeField] private Color seleccionado, desseleccionado;
     [SerializeField] private Tarjeta[] tarjetas = new Tarjeta[4];
 
     private DefensaElegidas[] defensas = new DefensaElegidas[4];
@@ -78,22 +79,22 @@ public class Ataque : MonoBehaviour
             }
             else 
             {
+                //Desselecionas
+                if (Input.GetMouseButtonDown(0)) DesSeleccionar();
+
                 //Comprueba cuando no hay colicion
                 if (casilla_actual == null) return;
 
                 MaterialNormal();
-                casilla_actual = null;
-
+                casilla_actual = null;           
             }
         }
-
-        //ONCLICK MIENTRAS SE SELECCIONA
     }
 
     private void Turno() 
     {
         defensas = new DefensaElegidas[4];
-        defensa_actual = null;
+        DesSeleccionar();
 
         //SELECCIONA LAS CARTAS
         Defensa[] comunes = Almacen.get.defensas.Filter((def) => !def.especial);
@@ -111,6 +112,17 @@ public class Ataque : MonoBehaviour
     {
         //SELECCIONA LA DEFENSA ACTUAL
         defensa_actual = defensas[carta];
+        tarjetas[carta].enUso.color = seleccionado;
+    }
+
+    public void DesSeleccionar() 
+    {
+        defensa_actual = null;
+
+        for (int i = 0; i < 4; i++)
+        {
+            tarjetas[i].enUso.color = desseleccionado;
+        }
     }
 
     public void Atacar() 
@@ -128,9 +140,9 @@ public class Ataque : MonoBehaviour
             }
         }
         MaterialNormal();
-        defensa_actual = null;
+        DesSeleccionar();
 
-     
+
     }
 
     //METODOS

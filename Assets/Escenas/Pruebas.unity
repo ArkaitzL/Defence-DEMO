@@ -1097,7 +1097,6 @@ MonoBehaviour:
       - {x: 1, y: 1}
       - {x: -1, y: 1}
     especial: 0
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: e69712c0e280a094ea119a28e1dba717, type: 3}
     area:
       maxX: 1
@@ -1106,7 +1105,6 @@ MonoBehaviour:
       minY: 0
       otros: []
     especial: 0
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: 3f412ae6ce1d9a94da3f135afe970251, type: 3}
     area:
       maxX: 0
@@ -1117,7 +1115,6 @@ MonoBehaviour:
       - {x: 1, y: 1}
       - {x: -1, y: 1}
     especial: 0
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: 13cdd82a6aa75b0449681bc1e704c877, type: 3}
     area:
       maxX: 1
@@ -1126,7 +1123,6 @@ MonoBehaviour:
       minY: -1
       otros: []
     especial: 0
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: 191aef2bdc4f886469e3bd9fb174387e, type: 3}
     area:
       maxX: 0
@@ -1135,7 +1131,6 @@ MonoBehaviour:
       minY: -1
       otros: []
     especial: 0
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: afea0c96206a5bb4091d764be3ba5d97, type: 3}
     area:
       maxX: 2
@@ -1144,7 +1139,6 @@ MonoBehaviour:
       minY: 0
       otros: []
     especial: 0
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: 152d584586a023044b5e76b203e1e9c0, type: 3}
     area:
       maxX: 2
@@ -1153,7 +1147,6 @@ MonoBehaviour:
       minY: -2
       otros: []
     especial: 1
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: 6f36ebdcf4d266a4685403719204005e, type: 3}
     area:
       maxX: 1
@@ -1166,7 +1159,6 @@ MonoBehaviour:
       - {x: -1, y: 1}
       - {x: -1, y: 2}
     especial: 1
-    "da\xF1o": 0
   - carta: {fileID: 21300000, guid: 66917e6f353a4ea4fa97c10dae7e7bcd, type: 3}
     area:
       maxX: 2
@@ -1179,7 +1171,6 @@ MonoBehaviour:
       - {x: 1, y: -1}
       - {x: -1, y: -1}
     especial: 1
-    "da\xF1o": 0
   niveles:
   - spawneo:
     - nombre_enemigo: Normal
@@ -1220,7 +1211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   area_material: {fileID: 2100000, guid: 2ad3a944a9efc6d42bd5e3a7d20c448f, type: 2}
-  centro_material: {fileID: 0}
+  seleccionado: {r: 0.8018868, g: 0.12482201, b: 0.12482201, a: 1}
+  desseleccionado: {r: 1, g: 1, b: 1, a: 1}
   tarjetas:
   - "da\xF1o": {fileID: 1204807214}
     area: {fileID: 297309983}
