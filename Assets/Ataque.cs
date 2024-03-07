@@ -8,10 +8,10 @@ public class Ataque : MonoBehaviour
     [SerializeField] private Material area_material, centro_material;
     [SerializeField] private Tarjeta[] tarjetas = new Tarjeta[4];
 
-    private Defensa[] defensas = new Defensa[4];
-    private Defensa defensa_actual = null;
+    private DefensaElegidas[] defensas = new DefensaElegidas[4];
+    private DefensaElegidas defensa_actual = null;
 
-    private List<Area> area_seleccionada = new();
+    private List<Hover> area_seleccionada = new();
     private List<Casilla> casillas = new();
     private GameObject casilla_actual = null;
 
@@ -59,7 +59,7 @@ public class Ataque : MonoBehaviour
                     foreach (var item in CalcularArea(objeto))
                     {
                         area_seleccionada.Add(
-                            new Area(
+                            new Hover(
                                 item.render,
                                 item.render?.material,
                                 item.posicion
@@ -92,7 +92,7 @@ public class Ataque : MonoBehaviour
 
     private void Turno() 
     {
-        defensas = new Defensa[4];
+        defensas = new DefensaElegidas[4];
         defensa_actual = null;
 
         //SELECCIONA LAS CARTAS
@@ -229,11 +229,15 @@ public class Ataque : MonoBehaviour
     public void CambiarDefensa(int i, Defensa[] opciones) 
     {
         //Selecciona la defensa
-        defensas[i] = opciones[Random.Range(0, opciones.Length)];
-        defensas[i].daño = Random.Range(1, 7);
+        int elegida = Random.Range(0, opciones.Length);
+
+        defensas[i] = new(
+            opciones[elegida].area,
+            Random.Range(1, 7)
+        );
 
         //Cambia la carta
-        tarjetas[i].area.sprite = defensas[i].carta;
+        tarjetas[i].area.sprite = opciones[elegida].carta;
         tarjetas[i].daño.text = defensas[i].daño.ToString();
     }
 }

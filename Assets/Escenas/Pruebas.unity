@@ -1078,7 +1078,7 @@ MonoBehaviour:
     habilidad: 0
   - nombre: Caballero
     vida_max: 9
-    vida_min: 2
+    vida_min: 4
     skin: {fileID: 7320080261201439320, guid: 80ea5e9d01238d5458df10211e6d238d, type: 3}
     habilidad: 0
   - nombre: Tanque
@@ -1183,9 +1183,9 @@ MonoBehaviour:
   niveles:
   - spawneo:
     - nombre_enemigo: Normal
-      posibilidades: 6
+      posibilidades: 5
     - nombre_enemigo: Caballero
-      posibilidades: 2
+      posibilidades: 5
     - nombre_enemigo: Tanque
       posibilidades: 5
     cant_turnos: 10

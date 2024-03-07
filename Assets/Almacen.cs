@@ -26,13 +26,26 @@ public class Defensa
     public Sprite carta;
     public Area area;
     public bool especial;
-    [HideInInspector] public int daño;
+}
 
-    [Serializable]
-    public class Area {
-        public int maxX, minX, maxY, minY;
-        public Vector2[] otros;
+[Serializable]
+public class DefensaElegidas
+{
+    public DefensaElegidas(Area area, int daño)
+    {
+        this.area = area;
+        this.daño = daño;
     }
+
+    public Area area;
+    public int daño;
+}
+
+[Serializable]
+public class Area
+{
+    public int maxX, minX, maxY, minY;
+    public Vector2[] otros;
 }
 
 [Serializable]
@@ -112,9 +125,9 @@ public class Ficha
     }
 }
 
-public class Area
+public class Hover
 {
-    public Area(Renderer render, Material material, Vector3 posicion)
+    public Hover(Renderer render, Material material, Vector3 posicion)
     {
         this.render = render;
         this.material = material;
