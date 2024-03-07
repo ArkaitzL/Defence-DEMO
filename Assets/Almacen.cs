@@ -158,6 +158,7 @@ public class Tarjeta
     public TextMeshProUGUI daño;
     public Image area;
     public Image enUso;
+    public GameObject bloqueo;
 }
 
 public enum Habilidad
