@@ -166,7 +166,7 @@ public class Ataque : MonoBehaviour
         }
 
         //Linea Y
-        for (int i = defensa_actual.area.minY * -1; i < defensa_actual.area.maxY + 1 * -1; i++)
+        for (int i = (defensa_actual.area.maxY * (-1)); i < (defensa_actual.area.minY * (-1)) + 1; i++)
         {
             Vector3 pos = new Vector3(
                    centro.transform.position.x,
@@ -187,7 +187,7 @@ public class Ataque : MonoBehaviour
             Vector3 pos = new Vector3(
                    area_otros.x + centro.transform.position.x,
                    centro.transform.position.y,
-                   area_otros.y + centro.transform.position.z
+                   (area_otros.y * (-1))  + centro.transform.position.z
                );
 
             if (pos == centro.transform.position) continue;
