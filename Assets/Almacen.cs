@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BaboOnLite;
 using TMPro;
+using UnityEngine.UI;
 
 public class Almacen : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Almacen : MonoBehaviour
 [Serializable]
 public class Defensa
 {
+    public Sprite carta;
     public Area area;
     public bool especial;
     [HideInInspector] public int daño;
@@ -135,6 +137,14 @@ public class Casilla
     public Vector3 posicion;
 
     public bool Comparar(Vector3 nueva_posicion) => posicion.x == nueva_posicion.x && posicion.z == nueva_posicion.z;
+}
+
+[Serializable]
+public class Tarjeta 
+{
+    public TextMeshProUGUI daño;
+    public Image area;
+    public Image enUso;
 }
 
 public enum Habilidad

@@ -5,14 +5,15 @@ using BaboOnLite;
 
 public class Ataque : MonoBehaviour
 {
-    [SerializeField] private Material area_material;
+    [SerializeField] private Material area_material, centro_material;
+    [SerializeField] private Tarjeta[] tarjetas = new Tarjeta[4];
 
-    Defensa[] defensas = new Defensa[4];
-    Defensa defensa_actual = null;
+    private Defensa[] defensas = new Defensa[4];
+    private Defensa defensa_actual = null;
 
-    List<Area> area_seleccionada = new();
-    List<Casilla> casillas = new();
-    GameObject casilla_actual = null;
+    private List<Area> area_seleccionada = new();
+    private List<Casilla> casillas = new();
+    private GameObject casilla_actual = null;
 
     private void Awake()
     {
@@ -100,12 +101,10 @@ public class Ataque : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            defensas[i] = comunes[Random.Range(0, comunes.Length)];
-            defensas[i].daño = Random.Range(1, 7);
+            CambiarDefensa(i, comunes);
         }
 
-        defensas[3] = especiales[Random.Range(0, especiales.Length)];
-        defensas[3].daño = Random.Range(1, 7);
+        CambiarDefensa(3, especiales);
     }
 
     public void Seleccionar(int carta) 
@@ -148,7 +147,7 @@ public class Ataque : MonoBehaviour
         }
 
         //Encuentra las posiciones
-        posiciones.Add(centro.transform.position);
+        //posiciones.Add(centro.transform.position);
 
         //Linea X
         for (int i = defensa_actual.area.minX; i < defensa_actual.area.maxX + 1; i++)
@@ -167,7 +166,7 @@ public class Ataque : MonoBehaviour
         }
 
         //Linea Y
-        for (int i = defensa_actual.area.minY; i < defensa_actual.area.maxY + 1; i++)
+        for (int i = defensa_actual.area.minY * -1; i < defensa_actual.area.maxY + 1 * -1; i++)
         {
             Vector3 pos = new Vector3(
                    centro.transform.position.x,
@@ -182,8 +181,21 @@ public class Ataque : MonoBehaviour
             );
         }
 
-        //Otros especioales [****]
-        
+        //Otros especioales
+        foreach (var area_otros in defensa_actual.area.otros)
+        {
+            Vector3 pos = new Vector3(
+                   area_otros.x + centro.transform.position.x,
+                   centro.transform.position.y,
+                   area_otros.y + centro.transform.position.z
+               );
+
+            if (pos == centro.transform.position) continue;
+
+            posiciones.Add(
+                pos
+            );
+        }
 
 
 
@@ -212,5 +224,16 @@ public class Ataque : MonoBehaviour
             casilla.render.material = casilla.material;
         }
         area_seleccionada = new();
+    }
+
+    public void CambiarDefensa(int i, Defensa[] opciones) 
+    {
+        //Selecciona la defensa
+        defensas[i] = opciones[Random.Range(0, opciones.Length)];
+        defensas[i].daño = Random.Range(1, 7);
+
+        //Cambia la carta
+        tarjetas[i].area.sprite = defensas[i].carta;
+        tarjetas[i].daño.text = defensas[i].daño.ToString();
     }
 }

@@ -8,10 +8,10 @@ using TMPro;
 
 public class Tablero : MonoBehaviour
 {
-    [SerializeField] Vector3[] pos_incio = new Vector3[5];
-    [SerializeField] int fila_final;
+    [SerializeField] private Vector3[] pos_incio = new Vector3[5];
+    [SerializeField] private int fila_final;
 
-    Transform tablero;
+    private Transform tablero;
 
     private void Awake()
     {
