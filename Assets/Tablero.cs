@@ -21,44 +21,53 @@ public class Tablero : MonoBehaviour
 
     private void Turno() 
     {
-        Nivel nivel = Almacen.get.niveles[Save.Data.nivel_actual];
+        Nivel nivel = Almacen.get.niveles[Controlador.get.nivel_actual];
 
-        //SPAWNEAR NUEVA FILA
-
-        //Selecciona las podsiciones de spawneo
-        int cant = UnityEngine.Random.Range(nivel.spawn_fila_min, nivel.spawn_fila_max + 1);
-        List<Vector3> posiciones = new List<Vector3>(pos_incio)
-            .OrderBy(x => Guid.NewGuid())
-            .Take(cant)
-            .ToList();
-
-        //Selecciona los enemigos
-        List<string> enemigos = Posibilidades(nivel, cant);
-
-        if (posiciones.Count != cant && enemigos.Count != cant) {
-            Debug.LogWarning("No se han generado bien los enemigos");
-            return;
-        }
-
-        //Spawnea los enemigos
-        for (int i = 0; i < cant; i++)
+        //CONTROLA QUE QUEDEN TURNOS
+        if (Controlador.get.turno < nivel.cant_turnos) 
         {
-            Enemigo enemigo = Almacen.get.enemigos.Filter((e) => e.nombre.ToLower().Trim() == enemigos[i].ToLower().Trim())[0];
-            int vida = UnityEngine.Random.Range(enemigo.vida_min, enemigo.vida_max + 1);
+            //SPAWNEAR NUEVA FILA
 
-            Transform skin = Instantiate(enemigo.skin, posiciones[i], Quaternion.identity, tablero).transform;
-            TextMeshProUGUI texto = skin.GetComponentsInChildren<TextMeshProUGUI>()[0];
-            texto.text = vida.ToString();
+            //Selecciona las podsiciones de spawneo
+            int cant = UnityEngine.Random.Range(nivel.spawn_fila_min, nivel.spawn_fila_max + 1);
+            List<Vector3> posiciones = new List<Vector3>(pos_incio)
+                .OrderBy(x => Guid.NewGuid())
+                .Take(cant)
+                .ToList();
 
-            Controlador.get.fichas.Add(
-                new Ficha(
-                    vida,
-                    posiciones[i],
-                    skin,
-                    skin.GetComponent<Animator>(),
-                    texto
-                )
-            );
+            //Selecciona los enemigos
+            List<string> enemigos = Posibilidades(nivel, cant);
+
+            if (posiciones.Count != cant && enemigos.Count != cant)
+            {
+                Debug.LogWarning("No se han generado bien los enemigos");
+                return;
+            }
+
+            //Spawnea los enemigos
+            for (int i = 0; i < cant; i++)
+            {
+                Enemigo enemigo = Almacen.get.enemigos.Filter((e) => e.nombre.ToLower().Trim() == enemigos[i].ToLower().Trim())[0];
+                int vida = 
+                    UnityEngine.Random.Range(enemigo.vida_min, enemigo.vida_max + 1)
+                    *
+                    ((nivel.multiplicador_vida / 100) + 1);
+
+                Transform skin = Instantiate(enemigo.skin, posiciones[i], Quaternion.identity, tablero).transform;
+                TextMeshProUGUI texto = skin.GetComponentsInChildren<TextMeshProUGUI>()[0];
+                texto.text = vida.ToString();
+
+                Controlador.get.fichas.Add(
+                    new Ficha(
+                        vida,
+                        posiciones[i],
+                        skin,
+                        skin.GetComponent<Animator>(),
+                        texto,
+                        skin.GetComponent<Correr>()
+                    )
+                );
+            }
         }
 
         //MOVER TODOS

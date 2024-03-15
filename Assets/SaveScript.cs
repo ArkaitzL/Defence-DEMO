@@ -12,6 +12,6 @@ public partial class SaveScript
     public int lenguaje = 0;
 
     //-----------------------------------------------------------------
-    public int nivel_actual = 0;
+    public int nivel_max = 0;
 
 }

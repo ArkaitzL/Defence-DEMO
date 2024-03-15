@@ -6,7 +6,7 @@ using BaboOnLite;
 public class Ataque : MonoBehaviour
 {
     //Colores
-    [SerializeField] private Material area_material;
+    [SerializeField] private Material area_material, centro_material;
     [SerializeField] private Color seleccionado, desseleccionado;
 
     //Tarjetas
@@ -77,7 +77,9 @@ public class Ataque : MonoBehaviour
                         )
                     );
 
-                    item.render.material = area_material;
+                    item.render.material = (item.posicion != objeto.transform.position) 
+                        ? area_material
+                        : centro_material;
                 }
             }
 
@@ -192,7 +194,7 @@ public class Ataque : MonoBehaviour
         }
 
         //Encuentra las posiciones
-        //posiciones.Add(centro.transform.position);
+        posiciones.Add(centro.transform.position);
 
         //Linea X
         for (int i = defensa_actual.area.minX; i < defensa_actual.area.maxX + 1; i++)

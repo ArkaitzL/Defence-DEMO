@@ -74,13 +74,14 @@ public class Nivel
 
 public class Ficha
 {
-    public Ficha(int vida, Vector3 posicion, Transform objeto, Animator anim, TextMeshProUGUI texto)
+    public Ficha(int vida, Vector3 posicion, Transform objeto, Animator anim, TextMeshProUGUI texto, Correr correr)
     {
         this.vida = vida;
         this.posicion = posicion;
         this.objeto = objeto;
         this.anim = anim;
         this.texto = texto;
+        this.correr = correr;
     }
 
     public int vida;
@@ -88,6 +89,7 @@ public class Ficha
     public Transform objeto;
     public Animator anim;
     public TextMeshProUGUI texto;
+    public Correr correr;
 
     public bool Comparar(Vector3 nueva_posicion) => posicion.x == nueva_posicion.x && posicion.z == nueva_posicion.z;
 
@@ -115,6 +117,12 @@ public class Ficha
 
         posicion = posicion.Z(+1);
 
+        if (Controlador.get.pos_final == posicion.z)
+        {
+            Derrota();
+            return;
+        }
+
         ControladorBG.Mover(
             objeto,
             new(duracion, posicion)
@@ -122,6 +130,12 @@ public class Ficha
         ControladorBG.Rutina(duracion, () => {
             anim.SetBool("Moviendo", false);
         });
+    }
+
+    public void Derrota() 
+    {
+        correr.corriendo = true;
+        Controlador.get.Derrota();
     }
 }
 
@@ -163,5 +177,7 @@ public class Tarjeta
 
 public enum Habilidad
 {
-
+    None,
+    Caja,
+    Caballo
 }
